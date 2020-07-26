@@ -1,3 +1,7 @@
+package ru.cti.TestOmiliaBot;
+
+import jdk.nashorn.internal.parser.Token;
+
 import java.io.BufferedReader;
 
 import java.io.IOException;
@@ -6,23 +10,30 @@ import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 
 public class HttpsConnectGetURL {
-//    private static final String USER_AGENT = "Mozilla/5.0";
+    private String accessToken;
 
-    public static void sendHttpGETRequest(String url) throws IOException {
+
+    public static void sendHttpGETRequest(String url, String accessToken) throws IOException {
         URL obj = new URL(url);
         HttpsURLConnection httpsURLConnection = (HttpsURLConnection) obj.openConnection();
         httpsURLConnection.setRequestMethod("GET");
         httpsURLConnection.setRequestProperty("accept", "application/json");
+//        httpsURLConnection.setRequestProperty("Accept-Charset", UTF);
+// есть ли ограничения по кодировке (charset) в API?
+        httpsURLConnection.setRequestProperty("Content-Type", "application/json");
+        httpsURLConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
         int responseCode = httpsURLConnection.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
+        System.out.println("GET Response Code: " + responseCode);
         if (responseCode == HttpsURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in .readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
-            } in .close();
+            }
+            in.close();
 
             // print result
             System.out.println(response.toString());

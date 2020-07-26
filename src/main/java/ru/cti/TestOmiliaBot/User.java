@@ -1,3 +1,5 @@
+package ru.cti.TestOmiliaBot;
+
 public class User {
     private String user_id;
     private String email;

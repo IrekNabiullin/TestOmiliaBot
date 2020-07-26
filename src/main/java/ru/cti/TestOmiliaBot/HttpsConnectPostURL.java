@@ -1,3 +1,5 @@
+package ru.cti.TestOmiliaBot;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,12 +9,11 @@ import java.net.URL;
 
 public class HttpsConnectPostURL {
 
-//    private static final String USER_AGENT = "Mozilla/5.0";
     public static String sendPOST(String url, String gson) throws IOException {
         URL obj = new URL(url);
         HttpsURLConnection httpsURLConnection = (HttpsURLConnection) obj.openConnection();
         httpsURLConnection.setRequestMethod("POST");
- //       httpsURLConnection.setRequestProperty("User-Agent", USER_AGENT);
+
 
         // POST - Send request
         httpsURLConnection.setDoOutput(true);
